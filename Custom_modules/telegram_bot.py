@@ -1,4 +1,4 @@
-from typing import Optional, final
+from typing import Optional, Final
 from telegram import Update, Bot
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes, MessageHandler, filters
 

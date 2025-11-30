@@ -1,0 +1,28 @@
+name: Get weather data 4 day forecast
+
+on:
+  schedule:
+    - cron: "0 22 1,5,9,13,17,21,25,29 * *"
+  workflow_dispatch:
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Get 4 day weather data
+        env: 
+          TELEGRAM_API_KEY: ${{ secrets.TELEGRAM_API_KEY }}
+          BOT_OWNER_ID: ${{ secrets.BOT_OWNER_ID }}
+        run: python get_weather_data.py --task 96h

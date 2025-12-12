@@ -1,5 +1,6 @@
 import httpx
 import datetime
+from zoneinfo import ZoneInfo
 
 url = "https://api-open.data.gov.sg/v2/real-time/api"
 weather_2h = "two-hr-forecast"
@@ -89,7 +90,8 @@ def extract_humidity_for_station(humidity_json : dict, station_name : str):
 
 def extract_forecast_2h(data, weather_area, station_name):
     output = []
-    output.append(f"2-Hour Weather Forecast {datetime.datetime.now().strftime('%d-%m-%Y %H:%M:%S')}")
+    timezone = ZoneInfo("Asia/Singapore")
+    output.append(f"2-Hour Weather Forecast {datetime.datetime.now(timezone).strftime('%d-%m-%Y %H:%M:%S')}")
     forecasts = data["data"]["items"][0]["forecasts"]
     if forecasts is None:
         return "No forecasts found"
